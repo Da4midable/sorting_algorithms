@@ -22,22 +22,34 @@ void swap(int *a, int *b)
  */
 int lomuto_partition(int *array, int low, int high, size_t size)
 {
-	int pivot = array[high];
-	int i = low - 1;
-	int j;
+	int *pivot, i, j;
+
+	pivot = array + high;
+	i = low - 1;
 
 	for (j = low; j <= high - 1; j++)
 	{
-		if (array[j] <= pivot)
+		if (array[j] < *pivot)
 		{
 			i++;
-			swap(&array[i], &array[j]);
+			if (i != j)
+			{
+				swap(&array[i], &array[j]);
+				print_array(array, size);
+			}
 		}
 	}
-	swap(&array[i + 1], &array[high]);
-	print_array(array, size);
-	return (i + 1);
+
+	i++;
+	if (i != high)
+	{
+		swap(&array[i], pivot);
+		print_array(array, size);
+	}
+
+	return (i);
 }
+
 
 /**
  * quick_sort_recursive - Recursive function for Quick Sort.
@@ -56,6 +68,7 @@ void quick_sort_recursive(int *array, int low, int high, size_t size)
 		quick_sort_recursive(array, pivot_index + 1, high, size);
 	}
 }
+
 
 /**
  * quick_sort - Sorts an array of integers in ascending order using Quick Sort.
