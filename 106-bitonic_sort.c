@@ -17,9 +17,6 @@ void bitonic_merge(int *array, size_t start, size_t size, int dir)
 
 	if (size > 1)
 	{
-		printf("Merging [%lu/%lu] (%s):\n", size, size, (dir == 1) ? "UP" : "DOWN");
-		print_array(array + start, size);
-
 		for (i = start; i < start + k; i++)
 		{
 			if ((array[i] > array[i + k]) == dir)
@@ -27,6 +24,7 @@ void bitonic_merge(int *array, size_t start, size_t size, int dir)
 				tmp = array[i];
 				array[i] = array[i + k];
 				array[i + k] = tmp;
+				print_array(array, size);
 			}
 		}
 
