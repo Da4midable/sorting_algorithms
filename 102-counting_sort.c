@@ -2,7 +2,7 @@
 
 /**
  * get_max - Get the maximum value in an array of integers.
- * @array: An array of integers.
+ * @array: Pointer to the array of integers.
  * @size: The size of the array.
  *
  * Return: The maximum integer in the array.
@@ -16,7 +16,6 @@ int get_max(int *array, int size)
 		if (array[i] > max)
 			max = array[i];
 	}
-
 	return (max);
 }
 
@@ -30,19 +29,19 @@ int get_max(int *array, int size)
  */
 void counting_sort(int *array, size_t size)
 {
-	int *count, *sorted, max, i;
+	int *count, *sort, max, i;
 
 	if (array == NULL || size < 2)
 		return;
 
-	sorted = malloc(sizeof(int) * size);
-	if (sorted == NULL)
+	sort = malloc(sizeof(int) * size);
+	if (sort == NULL)
 		return;
 	max = get_max(array, size);
 	count = malloc(sizeof(int) * (max + 1));
 	if (count == NULL)
 	{
-		free(sorted);
+		free(sort);
 		return;
 	}
 
@@ -56,13 +55,13 @@ void counting_sort(int *array, size_t size)
 
 	for (i = 0; i < (int)size; i++)
 	{
-		sorted[count[array[i]] - 1] = array[i];
+		sort[count[array[i]] - 1] = array[i];
 		count[array[i]] -= 1;
 	}
 
 	for (i = 0; i < (int)size; i++)
-		array[i] = sorted[i];
+		array[i] = sort[i];
 
-	free(sorted);
+	free(sort);
 	free(count);
 }
